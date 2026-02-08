@@ -6,33 +6,43 @@ import { cn } from '../lib/utils'
 import { TaskGroup } from '../types'
 
 export default function Home() {
-  const { currentWhere, currentWhat, setCurrentWhere, setCurrentWhat } = useAppStore()
+  const { 
+    currentWhere, 
+    currentWhat, 
+    taskGroups, 
+    activeGroupId,
+    setCurrentWhere, 
+    setCurrentWhat, 
+    setTaskGroups, 
+    setActiveGroupId 
+  } = useAppStore()
+  
   const [loadingWhere, setLoadingWhere] = useState(false)
   const [loadingWhat, setLoadingWhat] = useState(false)
   
-  const [groups, setGroups] = useState<TaskGroup[]>([])
-  const [activeGroupId, setActiveGroupId] = useState<string | undefined>(undefined)
-
   useEffect(() => {
     loadGroups()
   }, [])
 
   const loadGroups = async () => {
     const data = await getAvailableTaskGroups()
-    setGroups(data)
-    // Find default group to set as active initially
-    const defaultGroup = data.find(g => g.is_default)
-    if (defaultGroup) {
-      setActiveGroupId(defaultGroup.id)
-    } else if (data.length > 0) {
-      setActiveGroupId(data[0].id)
+    setTaskGroups(data)
+    
+    // Only set active group if not already set or if the set group no longer exists
+    if (!activeGroupId || !data.find(g => g.id === activeGroupId)) {
+      const defaultGroup = data.find(g => g.is_default)
+      if (defaultGroup) {
+        setActiveGroupId(defaultGroup.id)
+      } else if (data.length > 0) {
+        setActiveGroupId(data[0].id)
+      }
     }
   }
 
   const handleGenerateWhere = async () => {
     setLoadingWhere(true)
     try {
-      const suggestion = await getRandomSuggestion('where', activeGroupId)
+      const suggestion = await getRandomSuggestion('where', activeGroupId || undefined)
       setCurrentWhere(suggestion)
       // If we have both suggestions, save to history
       if (currentWhat && suggestion) {
@@ -46,7 +56,7 @@ export default function Home() {
   const handleGenerateWhat = async () => {
     setLoadingWhat(true)
     try {
-      const suggestion = await getRandomSuggestion('what', activeGroupId)
+      const suggestion = await getRandomSuggestion('what', activeGroupId || undefined)
       setCurrentWhat(suggestion)
       // If we have both suggestions, save to history
       if (currentWhere && suggestion) {
@@ -65,9 +75,9 @@ export default function Home() {
       </header>
 
       {/* Task Group Selector */}
-      {groups.length > 0 && (
+      {taskGroups.length > 0 && (
         <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-          {groups.map(group => (
+          {taskGroups.map(group => (
             <button
               key={group.id}
               onClick={() => setActiveGroupId(group.id)}

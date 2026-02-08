@@ -6,9 +6,13 @@ import { clearHistory, getUserTaskGroups, createTaskGroup, addTaskToGroup, delet
 import { TaskGroup, SuggestionType, Suggestion } from '../types'
 import { cn } from '../lib/utils'
 
+import { useAppStore } from '../lib/store'
+
 export default function Settings() {
+  const { taskGroups, setTaskGroups } = useAppStore()
   const [clearing, setClearing] = useState(false)
-  const [groups, setGroups] = useState<TaskGroup[]>([])
+  // Remove local groups state since we use store
+  // const [groups, setGroups] = useState<TaskGroup[]>([])
   const [showAddGroup, setShowAddGroup] = useState(false)
   const [newGroupName, setNewGroupName] = useState('')
   const [newGroupDesc, setNewGroupDesc] = useState('')
@@ -36,7 +40,7 @@ export default function Settings() {
 
   const loadGroups = async () => {
     const data = await getUserTaskGroups()
-    setGroups(data)
+    setTaskGroups(data)
   }
 
   const handleClearHistory = async () => {
@@ -59,7 +63,7 @@ export default function Settings() {
     
     const group = await createTaskGroup(newGroupName, newGroupDesc)
     if (group) {
-      setGroups([group, ...groups])
+      setTaskGroups([group, ...taskGroups])
       setShowAddGroup(false)
       setNewGroupName('')
       setNewGroupDesc('')
@@ -71,7 +75,7 @@ export default function Settings() {
     if (!confirm('确定要删除这个任务组吗？组内所有任务也会被删除。')) return
     
     if (await deleteTaskGroup(id)) {
-      setGroups(groups.filter(g => g.id !== id))
+      setTaskGroups(taskGroups.filter(g => g.id !== id))
       if (selectedGroupId === id) setSelectedGroupId(null)
     }
   }
@@ -238,12 +242,12 @@ export default function Settings() {
 
         {/* Groups List */}
         <div className="space-y-3">
-          {groups.length === 0 && (
+          {taskGroups.length === 0 && (
             <div className="text-center text-[#2D5016]/40 py-4 text-sm">
               还没有自定义任务组，点击"新建"创建一个吧
             </div>
           )}
-          {groups.map(group => (
+          {taskGroups.map(group => (
             <div 
               key={group.id}
               className="bg-white rounded-xl border border-[#2D5016]/10 shadow-sm overflow-hidden"
