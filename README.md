@@ -64,41 +64,24 @@ npm run dev
 
 本项目配置了 `vercel.json`，推荐使用 [Vercel](https://vercel.com) 进行一键部署。
 
-### 方式一：使用 Vercel CLI (推荐)
-
-1.  安装 Vercel CLI:
-    ```bash
-    npm i -g vercel
-    ```
-2.  登录 Vercel:
-    ```bash
-    vercel login
-    ```
-3.  部署到生产环境:
-    ```bash
-    vercel --prod
-    ```
-4.  配置环境变量 (首次部署后需要配置):
-    ```bash
-    echo "your_supabase_url" | vercel env add VITE_SUPABASE_URL production
-    echo "your_supabase_anon_key" | vercel env add VITE_SUPABASE_ANON_KEY production
-    vercel --prod # 重新部署以使环境变量生效
-    ```
-
-### 方式二：连接 GitHub 自动部署
-
 1.  将代码推送到 GitHub。
-2.  在 Vercel 控制台中导入项目。
-3.  在 **Settings > Environment Variables** 中添加以下环境变量：
-    *   `VITE_SUPABASE_URL`
-    *   `VITE_SUPABASE_ANON_KEY`
-4.  Vercel 会自动触发构建和部署。
+2.  在 Vercel 中导入项目。
+3.  在 Vercel 项目设置中添加环境变量 (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`)。
+4.  点击部署！
 
 ## 📱 如何安装到手机
 
-1.  使用手机浏览器（Chrome/Safari）访问部署后的网址。
-2.  点击浏览器的“分享”或菜单按钮。
-3.  选择 **“添加到主屏幕”**。
+### iOS (iPhone)
+1. 使用 **Safari** 浏览器访问应用网址。
+2. 点击底部的 **分享** 按钮（方框带箭头图标）。
+3. 向下滑动，选择 **“添加到主屏幕”**。
+4. 点击右上角的 **“添加”**。
+
+### Android
+1. 使用 **Chrome** 浏览器访问应用网址。
+2. 点击右上角的菜单按钮（三个点）。
+3. 选择 **“添加到主屏幕”** 或 **“安装应用”**。
+4. 按照提示确认安装。
 
 ## 📄 许可证
 
