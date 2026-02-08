@@ -4,6 +4,10 @@
 
 Sanpo 是一款极简主义的 PWA (Progressive Web App) 应用，旨在为想要散步但缺乏方向的人提供轻松有趣的指引。通过随机生成“去哪里”和“做什么”，让每一次散步都成为一场小小的探险。
 
+## 🔗 在线体验
+
+👉 **立即访问：[https://sanpo-one.vercel.app](https://sanpo-one.vercel.app)**
+
 ## ✨ 核心功能
 
 *   **🎲 随机指引**：
@@ -72,13 +76,13 @@ npm run dev
 ## 📱 如何安装到手机
 
 ### iOS (iPhone)
-1. 使用 **Safari** 浏览器访问应用网址。
+1. 使用 **Safari** 浏览器访问 [https://sanpo-one.vercel.app](https://sanpo-one.vercel.app)。
 2. 点击底部的 **分享** 按钮（方框带箭头图标）。
 3. 向下滑动，选择 **“添加到主屏幕”**。
 4. 点击右上角的 **“添加”**。
 
 ### Android
-1. 使用 **Chrome** 浏览器访问应用网址。
+1. 使用 **Chrome** 浏览器访问 [https://sanpo-one.vercel.app](https://sanpo-one.vercel.app)。
 2. 点击右上角的菜单按钮（三个点）。
 3. 选择 **“添加到主屏幕”** 或 **“安装应用”**。
 4. 按照提示确认安装。
